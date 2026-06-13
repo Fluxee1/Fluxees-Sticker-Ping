@@ -1,0 +1,122 @@
+<form class="fluxee-sticker-manager-shell" data-sticker-manager-form>
+  <header class="fluxee-sticker-manager-header">
+    <div class="fluxee-sticker-manager-heading">
+      <h2>Sticker Manager</h2>
+      <p class="notes">
+        Drag stickers into order. Every 8 enabled stickers automatically becomes the next radial page. Stickers can use images, GIFs, or WEBM files.
+      </p>
+    </div>
+    <div class="fluxee-sticker-manager-toolbar">
+      <button type="button" data-action="add-sticker">
+        <i class="fas fa-plus"></i>
+        Add Sticker
+      </button>
+      <button type="button" data-action="reset-stickers">
+        <i class="fas fa-rotate-left"></i>
+        Reset Bundled
+      </button>
+    </div>
+  </header>
+
+  <section class="fluxee-sticker-manager-list" data-sticker-list>
+    {{#each stickers}}
+      <article class="fluxee-sticker-manager-row" data-sticker-row data-sticker-id="{{this.id}}">
+        <div class="fluxee-sticker-manager-handle" data-drag-handle title="Drag to reorder" aria-label="Drag to reorder">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="fluxee-sticker-manager-preview">
+          {{#if this.path}}
+            {{#if this.isVideo}}
+              <video src="{{this.path}}" autoplay loop muted playsinline draggable="false"></video>
+            {{else}}
+              <img src="{{this.path}}" alt="{{this.name}}" draggable="false">
+            {{/if}}
+          {{else}}
+            <span>No media</span>
+          {{/if}}
+        </div>
+        <div class="fluxee-sticker-manager-fields">
+          <div class="fluxee-sticker-manager-topline">
+          <div class="fluxee-sticker-manager-badges">
+            <span class="fluxee-sticker-manager-badge" data-derived="page">Page 1</span>
+            <span class="fluxee-sticker-manager-badge fluxee-sticker-manager-badge-muted" data-derived="sort">#{{this.sortOrder}}</span>
+          </div>
+          <div class="fluxee-sticker-manager-row-actions">
+            <button type="button" class="fluxee-sticker-manager-preview-button" data-action="preview-sticker">Preview</button>
+            <button type="button" class="fluxee-sticker-manager-remove" data-action="remove-sticker">Remove</button>
+          </div>
+        </div>
+          <div class="fluxee-sticker-manager-grid fluxee-sticker-manager-grid-primary">
+            <label>
+              <span>Name</span>
+              <input type="text" data-field="name" value="{{this.name}}" placeholder="Skull Warning">
+            </label>
+            <label>
+              <span>Animation Style</span>
+              <select data-field="animationStyle">
+                {{#each this.animationStyleOptions}}
+                  <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                {{/each}}
+              </select>
+            </label>
+          </div>
+
+          <label class="fluxee-sticker-manager-path">
+            <span>Sticker Media</span>
+            <div class="fluxee-sticker-manager-path-row">
+              <input type="text" data-field="path" value="{{this.path}}" placeholder="modules/fluxees-ping/assets/skull.webp">
+              <button type="button" data-action="browse-image">Browse</button>
+            </div>
+          </label>
+
+          <label class="fluxee-sticker-manager-path">
+            <span>Sound Effect</span>
+            <div class="fluxee-sticker-manager-path-row">
+              <input type="text" data-field="soundPath" value="{{this.soundPath}}" placeholder="sounds/pop.ogg">
+              <button type="button" data-action="browse-sound">Browse</button>
+            </div>
+          </label>
+
+          <label class="fluxee-sticker-manager-volume">
+            <span>Sound Volume</span>
+            <div class="fluxee-sticker-manager-volume-row">
+              <input type="range" data-field="soundVolume" min="0" max="100" step="1" value="{{this.soundVolumePercent}}">
+              <output data-derived="soundVolume">{{this.soundVolumePercent}}%</output>
+            </div>
+          </label>
+
+          <label>
+            <span>Duration (ms)</span>
+            <input type="number" data-field="duration" min="250" step="50" value="{{this.duration}}">
+          </label>
+
+          <div class="fluxee-sticker-manager-grid fluxee-sticker-manager-grid-secondary">
+            <label class="fluxee-sticker-manager-toggle">
+              <input type="checkbox" data-field="repeatAudio" {{#if this.repeatAudio}}checked{{/if}}>
+              <span>Repeat Audio</span>
+            </label>
+            <label class="fluxee-sticker-manager-toggle">
+              <input type="checkbox" data-field="enabled" {{#if this.enabled}}checked{{/if}}>
+              <span>Enabled</span>
+            </label>
+            <label class="fluxee-sticker-manager-toggle">
+              <input type="checkbox" data-field="gmOnly" {{#if this.gmOnly}}checked{{/if}}>
+              <span>GM Only</span>
+            </label>
+          </div>
+        </div>
+      </article>
+    {{/each}}
+  </section>
+
+  <p class="notes fluxee-sticker-manager-empty" data-empty-state {{#if hasStickers}}hidden{{/if}}>
+    No stickers yet. Add one or reset to the bundled sticker set.
+  </p>
+
+  <footer class="fluxee-sticker-manager-footer">
+    <button type="submit" class="fluxee-sticker-manager-save">
+      <i class="fas fa-save"></i>
+      Save Changes
+    </button>
+  </footer>
+</form>

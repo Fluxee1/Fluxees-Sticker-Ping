@@ -1,0 +1,417 @@
+.fluxee-sticker-menu {
+  position: fixed;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.fluxee-sticker-button {
+  position: absolute;
+  left: -38px;
+  top: -38px;
+  width: 76px;
+  min-height: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  background: rgba(18, 20, 26, 0.94);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.fluxee-sticker-button:hover,
+.fluxee-sticker-button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 213, 79, 0.4), 0 12px 28px rgba(0, 0, 0, 0.45);
+  border-color: #ffd54f;
+}
+
+.fluxee-sticker-button img,
+.fluxee-sticker-button video {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.fluxee-sticker-label {
+  max-width: 60px;
+  color: #f7f1d5;
+  font-size: 10px;
+  line-height: 1.1;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+}
+
+.fluxee-sticker-center {
+  position: absolute;
+  left: -34px;
+  top: -34px;
+  width: 68px;
+  height: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: radial-gradient(circle at top, rgba(61, 66, 82, 0.98), rgba(17, 18, 24, 0.98));
+  color: #f7f1d5;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: auto;
+  user-select: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.fluxee-sticker-center-label {
+  font-size: 11px;
+  line-height: 1;
+}
+
+.fluxee-sticker-center-page {
+  font-size: 9px;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+#fluxees-ping-sticker-manager,
+#fluxees-ping-sticker-manager .window-content {
+  height: 100%;
+}
+
+#fluxees-ping-sticker-manager .window-content {
+  padding: 0;
+  overflow: hidden;
+  background: #161318;
+}
+
+.fluxee-sticker-manager-shell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  user-select: none;
+  background:
+    radial-gradient(circle at top, rgba(56, 44, 39, 0.35), rgba(19, 16, 20, 0.96)),
+    linear-gradient(180deg, rgba(24, 21, 27, 0.98), rgba(16, 14, 19, 0.98));
+  color: #efe5d0;
+}
+
+.fluxee-sticker-manager-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid rgba(255, 240, 214, 0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+}
+
+.fluxee-sticker-manager-header h2 {
+  margin: 0 0 6px;
+  font-size: 28px;
+  line-height: 1;
+  color: #f4ead8;
+}
+
+.fluxee-sticker-manager-heading {
+  max-width: 560px;
+}
+
+.fluxee-sticker-manager-toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.fluxee-sticker-manager-toolbar button,
+.fluxee-sticker-manager-footer button {
+  min-height: 40px;
+  padding-inline: 16px;
+  border-radius: 10px;
+}
+
+.fluxee-sticker-manager-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fluxee-sticker-manager-row {
+  display: grid;
+  grid-template-columns: 24px 92px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 240, 214, 0.08);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(38, 31, 36, 0.94), rgba(28, 24, 29, 0.94));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 8px 24px rgba(0, 0, 0, 0.22);
+  transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+.fluxee-sticker-manager-row.is-dragging {
+  opacity: 0.92;
+  transform: scale(1.01) rotate(0.25deg);
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.38);
+}
+
+.fluxee-sticker-manager-row:hover {
+  border-color: rgba(244, 192, 118, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.fluxee-sticker-manager-row-placeholder {
+  border: 1px dashed rgba(244, 192, 118, 0.45);
+  background: rgba(244, 192, 118, 0.08);
+  box-shadow: none;
+}
+
+body.fluxee-sticker-manager-dragging,
+body.fluxee-sticker-manager-dragging * {
+  cursor: grabbing !important;
+}
+
+.fluxee-sticker-manager-handle {
+  align-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(2, 4px);
+  grid-auto-rows: 4px;
+  justify-content: center;
+  align-content: center;
+  gap: 4px;
+  cursor: grab;
+  color: rgba(239, 229, 208, 0.55);
+  user-select: none;
+}
+
+.fluxee-sticker-manager-handle:active {
+  cursor: grabbing;
+}
+
+.fluxee-sticker-manager-handle span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.fluxee-sticker-manager-preview {
+  width: 92px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(255, 240, 214, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.fluxee-sticker-manager-preview img,
+.fluxee-sticker-manager-preview video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.fluxee-sticker-manager-preview span {
+  color: rgba(239, 229, 208, 0.7);
+  font-size: 12px;
+}
+
+.fluxee-sticker-manager-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.fluxee-sticker-manager-fields input,
+.fluxee-sticker-manager-fields textarea {
+  user-select: text;
+}
+
+.fluxee-sticker-manager-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.fluxee-sticker-manager-grid-primary {
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 240px);
+}
+
+.fluxee-sticker-manager-grid-secondary {
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: start;
+}
+
+.fluxee-sticker-manager-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.fluxee-sticker-manager-row-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.fluxee-sticker-manager-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.fluxee-sticker-manager-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(244, 192, 118, 0.14);
+  color: #f3d8ac;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fluxee-sticker-manager-badge-muted {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(239, 229, 208, 0.75);
+}
+
+.fluxee-sticker-manager-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.fluxee-sticker-manager-fields label span {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(239, 229, 208, 0.82);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.fluxee-sticker-manager-path-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.fluxee-sticker-manager-volume-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.fluxee-sticker-manager-volume-row output {
+  min-width: 48px;
+  text-align: right;
+  color: rgba(239, 229, 208, 0.8);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fluxee-sticker-manager-fields input[type="text"],
+.fluxee-sticker-manager-fields select {
+  min-height: 40px;
+  background: rgba(12, 10, 14, 0.88);
+  border: 1px solid rgba(255, 240, 214, 0.08);
+  color: #f7efe0;
+  border-radius: 10px;
+}
+
+.fluxee-sticker-manager-fields select {
+  padding-inline: 10px 32px;
+}
+
+.fluxee-sticker-manager-fields input[type="range"] {
+  accent-color: #f4c076;
+}
+
+.fluxee-sticker-manager-fields input[type="text"]:focus,
+.fluxee-sticker-manager-fields select:focus {
+  border-color: rgba(244, 192, 118, 0.45);
+  box-shadow: 0 0 0 1px rgba(244, 192, 118, 0.25);
+}
+
+@media (max-width: 860px) {
+  .fluxee-sticker-manager-grid-primary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.fluxee-sticker-manager-toggle {
+  display: inline-flex;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.fluxee-sticker-manager-toggle span {
+  margin: 0;
+}
+
+.fluxee-sticker-manager-remove {
+  justify-self: start;
+  min-height: 36px;
+  padding-inline: 12px;
+}
+
+.fluxee-sticker-manager-preview-button {
+  min-height: 36px;
+  padding-inline: 12px;
+}
+
+.fluxee-sticker-manager-preview.is-previewing {
+  border-color: rgba(244, 192, 118, 0.45);
+  box-shadow: 0 0 0 1px rgba(244, 192, 118, 0.18), 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.fluxee-sticker-manager-empty {
+  padding: 0 18px 18px;
+  color: rgba(239, 229, 208, 0.72);
+}
+
+.fluxee-sticker-manager-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 20px 18px;
+  border-top: 1px solid rgba(255, 240, 214, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.fluxee-sticker-manager-save {
+  min-width: 180px;
+}
