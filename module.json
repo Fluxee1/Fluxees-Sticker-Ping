@@ -1,7 +1,7 @@
 {
   "id": "fluxees-ping",
   "title": "Fluxee's Sticker Ping",
-  "description": "Open a radial sticker picker from the canvas and ping custom sticker media with optional animation and sound.",
+  "description": "Open a radial sticker picker anywhere on the canvas and ping stickers with sound and animation!",
   "version": "1.0.1",
   "authors": [
     {

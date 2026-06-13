@@ -1,83 +1,66 @@
 # Fluxee's Sticker Ping
 
-This Foundry VTT module adds a custom sticker ping radial for Foundry VTT.
+Fluxee's Sticker Ping adds a fast radial sticker picker to Foundry VTT so players and GMs can play animated stickers directly onto the canvas.
 
-## How to use it
+[Join the Discord!](https://discord.gg/KahMNDkRtK)
 
-- Make sure **Token Controls** is active.
-- Move your mouse over the canvas.
-- Press **Ctrl + E** to open the sticker radial at your current mouse position.
-- If **Enable Right-Click Hold** is turned on in settings, you can also hold right click on the canvas.
-- Click a sticker to show it to everyone on the same scene.
 
-Each sticker can have its own:
+## Release Highlights
 
-- animation style
-- sound effect
-- sound volume
-- duration
-- repeat-audio toggle
-- GM-only toggle
-- enabled/disabled state
+- Open a radial picker right on the canvas
+- Ping sticker media with animation and optional sound
+- Use per-sticker settings for animation, duration, volume, repeat audio, and GM-only visibility
+- Preview each sticker before saving it
+- Reorder stickers with drag and drop
+- Reset back to the bundled release sticker set at any time
 
-## Included setup
+## Quick Start
 
-The bundled sticker set currently includes:
+1. Make sure **Token Controls** is active.
+2. Move your mouse over the canvas.
+3. Press **Ctrl + E** to open the radial menu.
+4. Click a sticker to ping it on the scene.
 
-- `modules/fluxees-ping/assets/ayoo.webp`
-- `modules/fluxees-ping/assets/boohoo.webp`
-- `modules/fluxees-ping/assets/d20.webp`
-- `modules/fluxees-ping/assets/devious.webp`
-- `modules/fluxees-ping/assets/durst.webp`
-- `modules/fluxees-ping/assets/hello.webm`
-- `modules/fluxees-ping/assets/holyskull.webp`
-- `modules/fluxees-ping/assets/ikillu.webp`
-- `modules/fluxees-ping/assets/pepe-business.webp`
-- `modules/fluxees-ping/assets/redcircle.webp`
-- `modules/fluxees-ping/assets/reverse.webp`
-- `modules/fluxees-ping/assets/sadnana.webm`
-- `modules/fluxees-ping/assets/woah.webp`
-- `modules/fluxees-ping/assets/yellowguy.webp`
+If **Enable Right-Click Hold** is enabled in settings, you can also hold right click on the canvas to open the radial.
 
-## Changing the stickers
+## Sticker Manager
 
-Open **Game Settings -> Configure Settings -> Module Settings -> Fluxee's Sticker Ping**.
+Open **Game Settings -> Configure Settings -> Module Settings -> Fluxee's Sticker Ping**, then open **Sticker Manager**.
 
-Open **Sticker Manager**.
+From there you can:
 
-Inside that pop-out window you can:
-
-- add stickers
+- add or remove stickers
 - drag stickers into order
-- change the sticker name
-- choose animation and sound options
-- use **Browse** for sticker media or sound files
-- preview the sticker before saving
-- save the list
+- choose sticker media and sound files
+- set animation style
+- adjust sound volume
+- set sticker duration
+- toggle repeat audio
+- toggle GM-only visibility
+- preview the full effect before saving
 
-Supported sticker media:
+## Supported Media
+
+Sticker media supports:
 
 - `.webp`
 - `.png`
 - `.jpg`
 - `.jpeg`
-- `.gif`
 - `.webm`
 
-In practice, `.webm` is the best choice for animated stickers.
+For animated stickers used `.webm`!
 
-Example sticker paths:
+Sound effects can be assigned per sticker and previewed directly from Sticker Manager.
 
-```text
-modules/fluxees-ping/assets/heart.webp
-modules/fluxees-ping/assets/skull.png
-worlds/my-world/uploads/stickers/warning.webm
-```
+## Settings
 
-## Other settings
+- **Enable Right-Click Hold** turns the hold-to-open trigger on or off
+- **Hold Duration (ms)** changes how long right click must be held before the radial opens
+- **Sticker Size** changes how large sticker pings appear on the canvas
+- **Display Duration (ms)** sets the default duration for new stickers and bundled resets
+- **Debug Logging** writes troubleshooting messages to the browser console
 
-- **Enable Right-Click Hold** turns the right-click hold trigger on or off.
-- **Hold Duration (ms)** changes how long right click must be held.
-- **Sticker Size** changes how large the image ping appears.
-- **Display Duration (ms)** sets the default duration for new stickers and bundled resets.
-- **Debug Logging** writes troubleshooting logs to the browser console.
+## Credits
+
+Sound effects credit: [Dragon-Studio on Pixabay](https://pixabay.com/users/dragon-studio-38165424/)

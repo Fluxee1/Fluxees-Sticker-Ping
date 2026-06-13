@@ -10,6 +10,23 @@ const SUPPORTED_STICKER_MEDIA_EXTENSIONS = new Set([".webp", ".png", ".jpg", ".j
 const RIGHT_CLICK_HOLD_MOVE_TOLERANCE = 14;
 const DEFAULT_SOUND_VOLUME = 0.8;
 const DEFAULT_STICKER_DURATION_MS = 1600;
+const RELEASE_DEFAULT_STICKER_ORDER = [
+  "swords.png",
+  "dragon.png",
+  "fight.png",
+  "angry.png",
+  "disguised face.png",
+  "drooling face.png",
+  "exploding head.png",
+  "face with raised eyebrow.png",
+  "grinning face.png",
+  "grinning face with sweat.png",
+  "melting face.png",
+  "rolling on the floor laughing.png",
+  "saluting face.png",
+  "shaking face.png",
+  "thinking face.png"
+];
 const ANIMATION_STYLE_OPTIONS = [
   { value: "none", label: "No Animation" },
   { value: "standard", label: "Standard" },
@@ -24,20 +41,7 @@ const StickerManagerBase = HandlebarsApplicationMixin(ApplicationV2);
 let stickerPingManagerInstance = null;
 
 const DEFAULT_STICKERS = [
-  "ayoo.webp",
-  "boohoo.webp",
-  "d20.webp",
-  "devious.webp",
-  "durst.webp",
-  "hello.webm",
-  "holyskull.webp",
-  "ikillu.webp",
-  "pepe-business.webp",
-  "redcircle.webp",
-  "reverse.webp",
-  "sadnana.webm",
-  "woah.webp",
-  "yellowguy.webp"
+  ...RELEASE_DEFAULT_STICKER_ORDER
 ].map((fileName, index) => ({
   id: fileName.replace(/\.[^.]+$/, ""),
   name: fileName.replace(/\.[^.]+$/, "").replace(/[-_]/g, " "),
@@ -314,6 +318,10 @@ function getPathExtension(path) {
   return dotIndex >= 0 ? cleaned.slice(dotIndex) : "";
 }
 
+function getBaseFileName(path) {
+  return String(path ?? "").trim().split("/").pop() ?? "";
+}
+
 function isVideoStickerPath(path) {
   return getPathExtension(path) === ".webm";
 }
@@ -350,12 +358,34 @@ function createStickerRecordFromPath(path, index = 0) {
   }, index);
 }
 
+function sortBundledStickerPaths(paths) {
+  const preferredOrderLookup = new Map(
+    RELEASE_DEFAULT_STICKER_ORDER.map((fileName, index) => [fileName.toLowerCase(), index])
+  );
+
+  return [...paths].sort((left, right) => {
+    const leftFileName = getBaseFileName(left).toLowerCase();
+    const rightFileName = getBaseFileName(right).toLowerCase();
+    const leftPreferredIndex = preferredOrderLookup.get(leftFileName);
+    const rightPreferredIndex = preferredOrderLookup.get(rightFileName);
+
+    if (leftPreferredIndex !== undefined && rightPreferredIndex !== undefined) {
+      return leftPreferredIndex - rightPreferredIndex;
+    }
+    if (leftPreferredIndex !== undefined) return -1;
+    if (rightPreferredIndex !== undefined) return 1;
+
+    return leftFileName.localeCompare(rightFileName);
+  });
+}
+
 async function getBundledDefaultStickers() {
   try {
     const result = await FilePicker.browse("public", BUNDLED_ASSET_PATH);
     const files = Array.isArray(result?.files) ? result.files : [];
-    const bundled = files
+    const bundled = sortBundledStickerPaths(files
       .filter((path) => isSupportedStickerMediaPath(path))
+    )
       .map((path, index) => createStickerRecordFromPath(path, index))
       .filter(Boolean);
 
