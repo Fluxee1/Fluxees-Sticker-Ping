@@ -64,3 +64,4 @@ Sound effects can be assigned per sticker and previewed directly from Sticker Ma
 ## Credits
 
 Sound effects credit: [Dragon-Studio on Pixabay](https://pixabay.com/users/dragon-studio-38165424/)
+Sticker/Emoji Credit: [OpenMoji](https://openmoji.org/)
