@@ -7,6 +7,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "https://github.com/Fluxee1/Fluxees-Sticker-Ping"
+DOCUMENTATION_FILES = ("README.md", "LICENSE", "THIRD_PARTY_NOTICES.md")
 RUNTIME_FILES = ("scripts/module.js", "styles/module.css", "templates/sticker-manager.hbs")
 
 
@@ -28,6 +29,8 @@ def validate(root):
     assert manifest["manifest"] == f"{REPOSITORY}/releases/latest/download/module.json"
     assert manifest["download"] == f"{REPOSITORY}/releases/download/{manifest['version']}-Release/fluxees-ping.zip"
     assert manifest["compatibility"]["minimum"] == "13"
+    for name in DOCUMENTATION_FILES:
+        assert (root / name).is_file(), f"Missing license or documentation file: {name}"
     for path in manifest["esmodules"] + manifest["styles"]:
         assert (root / path).is_file(), f"Missing entry point: {path}"
     assert (root / "templates/sticker-manager.hbs").is_file()
@@ -41,7 +44,7 @@ def build(root=ROOT):
     manifest = validate(root)
     # Explicit file lists prevent local configuration, artwork, audio, and extra
     # code files from silently becoming public release contents.
-    files = [root / name for name in ("module.json", "README.md", *RUNTIME_FILES)]
+    files = [root / name for name in ("module.json", *DOCUMENTATION_FILES, *RUNTIME_FILES)]
     files.extend(public_assets(root))
     allowed_runtime = set(RUNTIME_FILES)
     if not set(manifest["esmodules"] + manifest["styles"]).issubset(allowed_runtime):

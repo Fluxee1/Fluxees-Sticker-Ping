@@ -4,33 +4,31 @@ Fluxee's Sticker Ping adds a fast radial sticker picker to Foundry VTT so player
 
 [Join the Discord!](https://discord.gg/KahMNDkRtK)
 
-
-## Release Highlights
+## Features
 
 - Open a radial picker right on the canvas
 - Ping sticker media with animation and optional sound
 - Use per-sticker settings for animation, duration, volume, repeat audio, and GM-only visibility
 - Preview each sticker before saving it
 - Reorder stickers with drag and drop
-- Reset back to the bundled release sticker set at any time
+- Reset back to the bundled sticker set at any time
 
 ## Quick Start
 
 ### Installation (Foundry VTT 13)
 
-Once the packaging fix is published, open **Setup -> Add-on Modules -> Install Module**
-and paste this into **Manifest URL**:
+Open **Setup -> Add-on Modules -> Install Module** and paste this into **Manifest URL**:
 
 `https://github.com/Fluxee1/Fluxees-Sticker-Ping/releases/latest/download/module.json`
 
 Click **Install**, then enable **Fluxee's Sticker Ping** in your world's module settings.
-This URL requires a release with the assets described below; the original 1.0.1
-release does not provide them.
 
-For a local/manual installation, extract the built `fluxees-ping.zip` into
-`Data/modules/fluxees-ping/`, so `module.json` is directly inside that folder.
-Restart Foundry. GitHub's automatic source ZIP uses a different folder name;
-do not extract that folder unchanged into `Data/modules`.
+For a manual installation, download `fluxees-ping.zip` from the
+[latest download](https://github.com/Fluxee1/Fluxees-Sticker-Ping/releases/latest)
+and extract its contents into `Data/modules/fluxees-ping/`, so `module.json` is
+directly inside that folder. Restart Foundry, then enable the module in your world.
+
+### Using Stickers
 
 1. Make sure **Token Controls** is active.
 2. Move your mouse over the canvas.
@@ -65,7 +63,7 @@ Sticker media supports:
 - `.jpeg`
 - `.webm`
 
-For animated stickers used `.webm`!
+Use `.webm` for animated stickers.
 
 Sound effects can be assigned per sticker and previewed directly from Sticker Manager.
 
@@ -75,9 +73,11 @@ Sound effects can be assigned per sticker and previewed directly from Sticker Ma
 - **Hold Duration (ms)** changes how long right click must be held before the radial opens
 - **Sticker Size** changes how large sticker pings appear on the canvas
 - **Display Duration (ms)** sets the default duration for new stickers and bundled resets
-- **Debug Logging** writes troubleshooting messages to the browser console
 
-## Credits
+## Credits and License
 
-Sound effects credit: [Dragon-Studio on Pixabay](https://pixabay.com/users/dragon-studio-38165424/)
-Sticker/Emoji Credit: [OpenMoji](https://openmoji.org/)
+- Sticker artwork: [OpenMoji](https://openmoji.org/), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- Sound effects: [Dragon-Studio on Pixabay](https://pixabay.com/users/dragon-studio-38165424/)
+
+The module's original code and documentation are licensed under the [MIT License](LICENSE).
+Bundled artwork and sounds have separate terms; see [Third-Party Asset Notices](THIRD_PARTY_NOTICES.md).

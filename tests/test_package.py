@@ -48,12 +48,26 @@ class PackageTests(unittest.TestCase):
             for source in (self.root / "assets").rglob("*"):
                 if source.is_file():
                     self.assertEqual(source.read_bytes(), (target / source.relative_to(self.root)).read_bytes())
-            self.assertFalse((target / "tools").exists())
-            self.assertFalse((target / ".git").exists())
+            for name in ("README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"):
+                self.assertEqual((self.root / name).read_bytes(), (target / name).read_bytes())
+            for name in ("tools", "tests", ".git", ".gitignore", ".gitattributes", ".github"):
+                self.assertFalse((target / name).exists())
         finally:
             server.shutdown()
             thread.join()
             server.server_close()
+
+    def test_reject_missing_license_or_notices(self):
+        for name in ("LICENSE", "THIRD_PARTY_NOTICES.md"):
+            with self.subTest(name=name):
+                path = self.root / name
+                original = path.read_bytes()
+                path.unlink()
+                try:
+                    with self.assertRaisesRegex(AssertionError, "Missing license or documentation file"):
+                        package.build(self.root)
+                finally:
+                    path.write_bytes(original)
 
     def test_reject_missing_entry_point(self):
         (self.root / "scripts/module.js").unlink()
@@ -76,7 +90,12 @@ class PackageTests(unittest.TestCase):
         with zipfile.ZipFile(package.build(self.root)) as archive:
             self.assertFalse(any(b"PRIVATE TEST CONTENT" in archive.read(name)
                                  for name in archive.namelist()))
-            self.assertEqual(len(archive.namelist()), 22)
+            expected = {
+                "module.json", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md",
+                "scripts/module.js", "styles/module.css", "templates/sticker-manager.hbs",
+                *json.loads((self.root / "tools/public-assets.json").read_text())["assets"],
+            }
+            self.assertEqual(set(archive.namelist()), expected)
 
     def test_reject_modified_public_asset(self):
         (self.root / "assets/angry.png").write_bytes(b"PRIVATE REPLACEMENT")
