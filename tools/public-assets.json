@@ -1,0 +1,22 @@
+{
+  "sourceCommit": "9cca637bfd26cff29b9cbbfc96306d9c94524884",
+  "assets": {
+    "assets/angry.png": "69ca1ac600cdb8e3980fd634e57c19f63a7a9443cdb7fe4a094aca8cae739424",
+    "assets/disguised face.png": "dc0d416186a19abb276e5e044ee4b5440b74112fd9729847479bd0ea8a0d6c05",
+    "assets/dragon.png": "59c010b5611fbe8e369c7dcba8cc69cbb356023edffd830e2308b111e967591c",
+    "assets/drooling face.png": "8c52e04d53ab5c2e075429e7539a3e8b104f30c06d9ff99469b0c3089a3d7260",
+    "assets/exploding head.png": "98f79e1b80081cdf267bcded8838f50883af19729abe1750cd420775e3e496e4",
+    "assets/face with raised eyebrow.png": "b9efb2c18ac389c30f05f98a8639425b8fa9741a63be2bd2918343b3953cda9a",
+    "assets/fight.png": "4a1d7ab5c25c3f4f4b18031eac5c17e6f13cb8102fae1d536942046ada4949e7",
+    "assets/grinning face with sweat.png": "d9b568ccf1ea72409b243ba91e7d467428415719347756411c04e45e1b345835",
+    "assets/grinning face.png": "4f598c9d7db8d7124c98a23829c3ef1c7423ced5b436c4ea90956fc97eea2190",
+    "assets/melting face.png": "715f25b5bc110e4c857821f7748795eb6af46f8c77151efaa85d138bad93e0e6",
+    "assets/rolling on the floor laughing.png": "e7d14561dbec3b7a31cc04b0d7cb63b0792d8f3816f83f143b1d81ad4cf752d5",
+    "assets/saluting face.png": "a0fdc2e3f800e7e9dff91ad66f7fdbec2f540aef8b7ce859361ca6001e01cd4f",
+    "assets/shaking face.png": "2c6b7867dbe0d15404c16d585795d5050e09fd476e7712b1cfdb35cb3274bc84",
+    "assets/sounds/pop.ogg": "7e0445f3fe436e0225b7b0ffb13958066f65adc6af2e854af386261825f3a448",
+    "assets/sounds/sword-slice.ogg": "731e3d68633da21ae38f579d44b3e24bbed9cebfdb7d66d1ad22b877addfe97c",
+    "assets/swords.png": "881168325443e268da23ce22a55e7b36caf13815696a093fa364c2485614cb26",
+    "assets/thinking face.png": "b1c6dc001b1a7898d4f8d6b98e31393469ff6b20fbd974802c2512bdb8584491"
+  }
+}

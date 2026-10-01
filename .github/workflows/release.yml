@@ -1,0 +1,28 @@
+name: Package and publish module
+on:
+  push:
+    tags:
+      - '*-Release'
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify tag and package
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          python -c 'import json, os; m=json.load(open("module.json")); assert os.environ["RELEASE_TAG"] == m["version"] + "-Release"'
+          python -m unittest discover -s tests -v
+          python tools/package.py
+          node --check scripts/module.js
+      - name: Publish verified assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/module.json dist/fluxees-ping.zip --verify-tag --latest --title "Fluxee's Sticker Ping ${GITHUB_REF_NAME%-Release}" --notes "Fix Foundry installation with a downloadable manifest and validated module ZIP. Includes only the original public repository assets. Requires Foundry VTT 13."

@@ -16,6 +16,44 @@ Fluxee's Sticker Ping adds a fast radial sticker picker to Foundry VTT so player
 
 ## Quick Start
 
+### Installation (Foundry VTT 13)
+
+Once the packaging fix is published, open **Setup -> Add-on Modules -> Install Module**
+and paste this into **Manifest URL**:
+
+`https://github.com/Fluxee1/Fluxees-Sticker-Ping/releases/latest/download/module.json`
+
+Click **Install**, then enable **Fluxee's Sticker Ping** in your world's module settings.
+This URL requires a release with the assets described below; the original 1.0.1
+release does not provide them.
+
+For a local/manual installation, extract the built `fluxees-ping.zip` into
+`Data/modules/fluxees-ping/`, so `module.json` is directly inside that folder.
+Restart Foundry. GitHub's automatic source ZIP uses a different folder name;
+do not extract that folder unchanged into `Data/modules`.
+
+### Preparing a release
+
+Run `python tools/package.py` and `python -m unittest discover -s tests -v`.
+The builder validates the manifest and creates `dist/module.json` and
+`dist/fluxees-ping.zip`, with the manifest and runtime files at the ZIP root.
+Only the three reviewed runtime files and the original GitHub assets listed in
+`tools/public-assets.json` are included alongside the manifest and README.
+The builder verifies asset SHA-256 hashes and rejects modified public assets;
+additional files are excluded. Before merging local code, review these runtime
+files and the README for private paths, settings, embedded media, or credentials.
+The file allowlist does not sanitize content embedded inside reviewed files.
+
+For version 1.0.2, a maintainer must publish a non-prerelease GitHub release tagged
+`1.0.2-Release` from the reviewed fix and upload **both** generated files as assets.
+For future releases, update `version` and the versioned `download` URL together,
+then use the matching `<version>-Release` tag. Keep the `manifest` URL stable.
+Do not use GitHub's automatic source archive as the install asset.
+
+After publication, verify the manifest URL downloads JSON, its `download` URL
+downloads the ZIP, and Foundry 13 can install and enable the module. In a world,
+open the picker and Sticker Manager and check a bundled sticker and sound.
+
 1. Make sure **Token Controls** is active.
 2. Move your mouse over the canvas.
 3. Press **Ctrl + E** to open the radial menu.
