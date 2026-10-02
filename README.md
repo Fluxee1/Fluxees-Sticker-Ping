@@ -13,9 +13,17 @@ Fluxee's Sticker Ping adds a fast radial sticker picker to Foundry VTT so player
 - Reorder stickers with drag and drop
 - Reset back to the bundled sticker set at any time
 
+## Compatibility
+
+Tested on Foundry VTT **13 and 14**. The manifest requires at least **13** and
+marks **14** as the latest verified generation, with no maximum restriction.
+The latest user-reported tests passed on **Foundry 14.368** with **dnd5e 6.0.5**,
+including the popped-out Sticker Manager and sticker pings and sounds received
+by a second player.
+
 ## Quick Start
 
-### Installation (Foundry VTT 13)
+### Installation (Foundry VTT 13 and 14)
 
 Open **Setup -> Add-on Modules -> Install Module** and paste this into **Manifest URL**:
 

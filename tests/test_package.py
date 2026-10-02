@@ -45,6 +45,7 @@ class PackageTests(unittest.TestCase):
             with zipfile.ZipFile(io.BytesIO(data)) as downloaded:
                 downloaded.extractall(target)
             self.assertEqual(package.validate(target), manifest)
+            self.assertEqual(manifest["compatibility"], {"minimum": "13", "verified": "14"})
             for source in (self.root / "assets").rglob("*"):
                 if source.is_file():
                     self.assertEqual(source.read_bytes(), (target / source.relative_to(self.root)).read_bytes())
@@ -77,7 +78,7 @@ class PackageTests(unittest.TestCase):
     def test_reject_version_download_mismatch(self):
         path = self.root / "module.json"
         manifest = json.loads(path.read_text())
-        manifest["version"] = "1.0.3"
+        manifest["version"] = "99.0.0"
         path.write_text(json.dumps(manifest))
         with self.assertRaises(AssertionError):
             package.build(self.root)
