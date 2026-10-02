@@ -1,5 +1,17 @@
 name: Package and publish module
 on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing published release tag (registration only)
+        required: true
+        default: 1.0.2-Release
+        type: string
+      dry_run:
+        description: Validate without saving to Foundry
+        required: true
+        default: true
+        type: boolean
   push:
     tags:
       - '*-Release'
@@ -7,6 +19,7 @@ permissions:
   contents: write
 jobs:
   release:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,3 +39,29 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$GITHUB_REF_NAME" dist/module.json dist/fluxees-ping.zip --verify-tag --latest --title "Fluxee's Sticker Ping ${GITHUB_REF_NAME%-Release}" --notes "Fix Foundry installation with a downloadable manifest and validated module ZIP. Includes only the original public repository assets. Requires Foundry VTT 13."
+
+  foundry:
+    needs: release
+    if: >-
+      always() && ((github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') && needs.release.result == 'success') || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    concurrency:
+      group: foundry-package-registration
+      cancel-in-progress: false
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test Foundry registration helper
+        run: python -m unittest discover -s tests -p test_foundry_release.py -v
+      - name: Verify published assets and register with Foundry
+        env:
+          FOUNDRY_PACKAGE_RELEASE_TOKEN: ${{ secrets.FOUNDRY_PACKAGE_RELEASE_TOKEN }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && 'true' || 'false' }}
+        run: python tools/foundry_release.py --repository "$GITHUB_REPOSITORY" --tag "$RELEASE_TAG" --dry-run "$DRY_RUN"
